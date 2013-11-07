@@ -1,6 +1,8 @@
 Responsive image replacement
 ============================
 
+Check out the example [here](http://kvendrik.github.io/responsive-images.js).
+
 resonsive-img.js is a lightweight plugin for fast, clean and easy responsive image replacement using to the viewport your visitor's browser. 
 This way you can reduce the payload for your users by only letting them download the appropriate images for their device.
 
