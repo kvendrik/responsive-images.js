@@ -1,0 +1,32 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font: 18px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+img {
+  max-width: 100%;
+}
+
+aside {
+  float: left;
+  overflow: hidden;
+
+  position: relative;
+}
+
+aside div#current-src {
+  top: 0;
+  right: 0;
+  position: absolute;
+
+  font-size: .8em;
+  color: #fff;
+  background: #000;
+  opacity: .7;
+  padding: 12px 15px;
+}

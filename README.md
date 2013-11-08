@@ -16,23 +16,23 @@ Usage
 
 To start using the plugin we only have to include the script in the footer of our document.
 
-	<script src='responsive_img-min.js'></script>
+	<script src='responsive-img.min.js'></script>
 
 
 ####HTML Structure
 
 In the `data-src` attribute we specify the different breakpoints in combination with the image source it should use. In the `data-src-base`(optional) attribute we specify the base of our source urls.
 
-	<img alt='kitten!' data-src-base='images/' data-src='<400:200.jpeg,
-														 >400:400.jpeg,
-														 >1000:600.jpeg,
-														 >1240:800.jpeg' />
+	<img alt='kitten!' data-src-base='demo/images/' data-src='<480:smallest.jpg,
+														 	  <768:small.jpg,
+														 	  <960:medium.jpg,
+														 	  >960:big.jpg' />
 
-Using the HTML above the browser would load images/200.jpeg if the size of the viewport is below 400 pixels, images/400.jpeg if the size of the viewport is above 400 pixels and below 1000 pixels, images/600.jpeg if the size of viewport above 1000 pixels and below 1240 pixels and images/800.jpeg if the size of viewport above 1240 pixels.
+Using the HTML above the browser would load images/smallest.jpeg if the size of the viewport is below 480 pixels, images/small.jpeg if the size of the viewport is above 480 pixels and below 768 pixels, images/medium.jpeg if the size of viewport above 768 pixels and below 960 pixels and images/big.jpeg if the size of viewport above 960 pixels.
 
 Let's also create a fallback for non-javascript browsers:
 
-	<noscript><img alt='kitten!' src='images/400.jpeg' /></noscript>
+	<noscript><img alt='kitten!' src='images/medium.jpeg' /></noscript>
 
 That's all! We're up and running! ;)
 
