@@ -28,7 +28,7 @@ In the `data-src` attribute we specify the different breakpoints in combination 
 														 	  <960:medium.jpg,
 														 	  >960:big.jpg' />
 
-Using the HTML above the browser would load images/smallest.jpg if the size of the viewport is below 480 pixels, images/small.jpg if the size of the viewport is above 480 pixels and below 768 pixels, images/medium.jpg if the size of viewport above 768 pixels and below 960 pixels and images/big.jpg if the size of viewport above 960 pixels.
+Using the HTML above the browser would load demo/images/smallest.jpg if the size of the viewport is below 480 pixels, demo/images/small.jpg if the size of the viewport is above 480 pixels and below 768 pixels, demo/images/medium.jpg if the size of viewport above 768 pixels and below 960 pixels and demo/images/big.jpg if the size of viewport above 960 pixels.
 
 Let's also create a fallback for non-javascript browsers:
 
