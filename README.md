@@ -32,7 +32,7 @@ Using the HTML above the browser would load images/smallest.jpg if the size of t
 
 Let's also create a fallback for non-javascript browsers:
 
-	<noscript><img alt='kitten!' src='images/medium.jpg' /></noscript>
+	<noscript><img alt='kitten!' src='demo/images/medium.jpg' /></noscript>
 
 That's all! We're up and running! ;)
 
