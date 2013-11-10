@@ -8,9 +8,9 @@ function checkSrc(){
 }
 
 if(window.addEventListener){
-	window.addEventListener('load', checkSrc, false);
-	window.addEventListener('resize', checkSrc, false);
+	img.addEventListener('load', checkSrc, false);
+	img.addEventListener('resize', checkSrc, false);
 } else {
-	window.attachEvent('onload', checkSrc);
-	window.attachEvent('onresize', checkSrc);
+	img.attachEvent('onload', checkSrc);
+	img.attachEvent('onresize', checkSrc);
 }
