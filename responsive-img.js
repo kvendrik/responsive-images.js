@@ -5,16 +5,25 @@
 		////////GET ALL IMAGES////////
 
 		var images = document.getElementsByTagName('body')[0].getElementsByTagName('img');
-		if(!images.length > 0){
+		if( images.length === 0 ){
 			return;
 		}
 
 		////////HASATTR FUNCTION////////
 
+		var hasAttr;
 		if(!images[0].hasAttribute){ //IE <=7 fix
-			Object.prototype.hasAttribute = function(attrName){
-				return typeof this[attrName] !== undefined ? 1 : 0;
-			}
+
+			hasAttr = function(el, attrName){ //IE does not support Object.Prototype
+				return typeof el[attrName] !== undefined ? 1 : 0;
+			};
+
+		} else {
+
+			hasAttr = function(el, attrName){
+				return el.hasAttribute(attrName) ? 1 : 0;
+			};
+
 		}
 
 		////////CHECK IF DISPLAY IS RETINA////////
@@ -30,16 +39,16 @@
 
 				//set attr names
 
-				var srcAttr = ( retina && image.hasAttribute('data-src2x') ) ? 'data-src2x' : 'data-src';
-				var baseAttr = ( retina && image.hasAttribute('data-src-base2x') ) ? 'data-src-base2x' : 'data-src-base';
+				var srcAttr = ( retina && hasAttr(image, 'data-src2x') ) ? 'data-src2x' : 'data-src';
+				var baseAttr = ( retina && hasAttr(image, 'data-src-base2x') ) ? 'data-src-base2x' : 'data-src-base';
 
 				//check image attributes
 
-				if( !image.hasAttribute(srcAttr) ){
+				if( !hasAttr(image, srcAttr) ){
 					continue;
 				}
 
-				var basePath = image.hasAttribute(baseAttr) ? image.getAttribute(baseAttr) : '';
+				var basePath = hasAttr(image, baseAttr) ? image.getAttribute(baseAttr) : '';
 
 
 				//get attributes
