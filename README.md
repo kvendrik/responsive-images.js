@@ -46,8 +46,8 @@ The only required option is the data-src attribute. All of the options below can
 | Name            | Type      | Description
 | --------------- | --------- | ---------------------------------------------------- |
 | `data-src-base` | attribute | Adds a specified path before every image source path |
-| `data-src2x` 	  | attribute | Will be used instead of `data-src` if devicePixelRatio is above 1.2 (								 retina displays). Syntax is the same as `data-src`. |
-
+| `data-src2x` 	  | attribute | Can be used instead of `data-src` if devicePixelRatio is above 1.2 (retina displays). Syntax is the same as `data-src`. |
+| `data-src-base2x` 	  | attribute | Can be used instead of `data-src-base` to specify a custom base path for devices were devicePixelRatio is above 1.2 (retina displays). Can be used in combination with both `data-src` and `data-src-base` or either one |
 
 Browser support
 ---------------

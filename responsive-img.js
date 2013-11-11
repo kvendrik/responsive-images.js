@@ -5,6 +5,21 @@
 		////////GET ALL IMAGES////////
 
 		var images = document.getElementsByTagName('body')[0].getElementsByTagName('img');
+		if(!images.length > 0){
+			return;
+		}
+
+		////////HASATTR FUNCTION////////
+
+		if(!images[0].hasAttribute){ //IE <=7 fix
+			function hasAttribute(el, attrName){
+				return typeof el[attrName] !== undefined ? 1 : 0;
+			}
+		}
+
+		////////CHECK IF DISPLAY IS RETINA////////
+
+		var retina = window.devicePixelRatio ? window.devicePixelRatio >= 1.2 ? 1 : 0 : 0;
 
 		////////LOOP ALL IMAGES////////
 
@@ -13,50 +28,25 @@
 				var image = images[i];
 
 
+				//set attr names
+
+				var srcAttr = ( retina && image.hasAttribute('data-src2x') ) ? 'data-src2x' : 'data-src';
+				var baseAttr = ( retina && image.hasAttribute('data-src-base2x') ) ? 'data-src-base2x' : 'data-src-base';
+
 				//check image attributes
 
-				var base_path;
-				if(image.hasAttribute){
-
-					if( !image.hasAttribute('data-src') ){
-						//console.error('No data-src attribute specified on ' + image);
-						continue;
-					}
-
-					base_path = image.hasAttribute('data-src-base') ? image.getAttribute('data-src-base') : '';
-
-				} else { //IE <=7 fix
-
-					if(typeof image['data-src'] === undefined){
-						continue;
-					}
-
-					base_path = typeof image['data-src'] !== undefined ? image.getAttribute('data-src-base') : '';
-
+				if( !image.hasAttribute(srcAttr) ){
+					continue;
 				}
+
+				var basePath = image.hasAttribute(baseAttr) ? image.getAttribute(baseAttr) : '';
+
 
 				//get attributes
 
-					var queries;
+				var queries = image.getAttribute(srcAttr);
 
-					//check if devicePixelRatio method exists 
-					if(window.devicePixelRatio){
 
-						//if devicePixelRatio is above 1.2 and 2x attr exists
-						if( window.devicePixelRatio >= 1.2 && (image.hasAttribute ? image.hasAttribute('data-src2x') : typeof image['data-src2x'] !== undefined) ){
-							
-							//get queries from 2x attr
-							queries = image.getAttribute('data-src2x');
-						}
-
-					}
-
-					//if queries is undefiend
-					if(queries === undefined) {
-
-						//get queries from 1x attr
-						queries = image.getAttribute('data-src');
-					}
 
 				//split defined query list
 
@@ -120,12 +110,12 @@
 					//check if document.width meets condition
 					if(bool){
 
-						//console.log('vieport:'+viewport + 'src:' + base_path + response);
-						var new_source = base_path + response;
+						//console.log('vieport:'+viewport + 'src:' + basePath + response);
+						var new_source = basePath + response;
 
 						if(image.src !== new_source){
 
-							//change img src to base_path + response
+							//change img src to basePath + response
 							image.setAttribute('src', new_source);
 
 						}
