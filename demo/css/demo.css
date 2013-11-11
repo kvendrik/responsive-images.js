@@ -23,6 +23,7 @@ aside div#current-src {
   top: 0;
   right: 0;
   position: absolute;
+  float: right;
 
   font-size: .8em;
   color: #fff;

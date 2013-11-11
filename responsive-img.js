@@ -1,6 +1,6 @@
 	function makeImagesResponsive(){
 
-			var viewport = document.documentElement.clientWidth !== 0 ? document.documentElement.clientWidth : document.getElementsByTagName('body')[0].clientWidth;
+			var viewport = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
 		////////GET ALL IMAGES////////
 
@@ -37,7 +37,26 @@
 
 				//get attributes
 
-					var queries = image.getAttribute('data-src');
+					var queries;
+
+					//check if devicePixelRatio method exists 
+					if(window.devicePixelRatio){
+
+						//if devicePixelRatio is above 1.2 and 2x attr exists
+						if( window.devicePixelRatio >= 1.2 && (image.hasAttribute ? image.hasAttribute('data-src2x') : typeof image['data-src2x'] !== undefined) ){
+							
+							//get queries from 2x attr
+							queries = image.getAttribute('data-src2x');
+						}
+
+					}
+
+					//if queries is undefiend
+					if(queries === undefined) {
+
+						//get queries from 1x attr
+						queries = image.getAttribute('data-src');
+					}
 
 				//split defined query list
 

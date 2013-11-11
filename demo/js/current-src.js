@@ -3,7 +3,7 @@ img = document.getElementsByTagName('img')[0];
 
 function checkSrc(){
 
-	hud.innerHTML = img.getAttribute('src') + '<br>('+(img.naturalWidth + 'x' + img.naturalHeight)+')';
+	hud.innerHTML = img.getAttribute('src') + '<br>('+(img.naturalWidth + 'x' + img.naturalHeight)+') Viewport: ' + (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth);
 
 }
 

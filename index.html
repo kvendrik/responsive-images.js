@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name='viewport' content='width=device-width'>
 	<title>Responsive-images.js</title>
 	<link rel="stylesheet" type="text/css" href="demo/css/demo.css" />
 </head>
@@ -12,7 +13,12 @@
 	<img alt='kitten!' data-src-base='demo/images/' data-src='<480:smallest.jpg,
 														 	  <768:small.jpg,
 														 	  <960:medium.jpg,
-														 	  >960:big.jpg' />
+														 	  >960:big.jpg'
+
+													data-src2x='<480:retina/smallest.jpg,
+														 	    <768:retina/small.jpg,
+														 	    <960:retina/medium.jpg,
+														 	    >960:retina/big.jpg'/>
 </aside>
 
 <script src='responsive-img.min.js' defer></script>

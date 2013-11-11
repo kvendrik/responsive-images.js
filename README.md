@@ -41,9 +41,12 @@ That's all! We're up and running! ;)
 Options
 -------
 
+The only required option is the data-src attribute. All of the options below can be used additionally.
+
 | Name            | Type      | Description
 | --------------- | --------- | ---------------------------------------------------- |
 | `data-src-base` | attribute | Adds a specified path before every image source path |
+| `data-src2x` 	  | attribute | Will be used instead of `data-src` if devicePixelRatio is above 1.2 (								 retina displays). Syntax is the same as `data-src`. |
 
 
 Browser support
@@ -101,6 +104,12 @@ There are no known unsupported browsers. The plugin has currently been tested in
 |  iOS 5.1         								  | Works! |
 |  iOS 6.0         								  | Works! |
 |  iOS 7.0         								  | Works! |
+
+
+####Notes
+
+######iOS
+Without meta `width=device-width;` some mobile devices will apply a standard width to it's viewport of 960px and return this to the javascript. This might cause the script to load an image which is to big for your visitors screen. Make sure to set a meta tag with `width=device-width;` in your website's head.
 
 
 Comments
