@@ -12,8 +12,8 @@
 		////////HASATTR FUNCTION////////
 
 		if(!images[0].hasAttribute){ //IE <=7 fix
-			function hasAttribute(el, attrName){
-				return typeof el[attrName] !== undefined ? 1 : 0;
+			Object.prototype.hasAttribute = function(attrName){
+				return typeof this[attrName] !== undefined ? 1 : 0;
 			}
 		}
 
