@@ -15,13 +15,13 @@
 		if(!images[0].hasAttribute){ //IE <=7 fix
 
 			hasAttr = function(el, attrName){ //IE does not support Object.Prototype
-				return typeof el[attrName] !== undefined ? 1 : 0;
+				return el.getAttribute(attrName) !== null;
 			};
 
 		} else {
 
 			hasAttr = function(el, attrName){
-				return el.hasAttribute(attrName) ? 1 : 0;
+				return el.hasAttribute(attrName);
 			};
 
 		}
