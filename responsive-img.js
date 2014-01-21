@@ -1,3 +1,11 @@
+/*
+// @name: Responsive-img.js
+// @version: 1.0
+// 
+// Copyright 2013-2014 Koen Vendrik, http://kvendrik.com
+// Licensed under the MIT license
+*/
+
 	function makeImagesResponsive(){
 
 			var viewport = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
