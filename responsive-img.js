@@ -74,11 +74,11 @@
 				for(var j = 0; j < queries_array.length; j++){
 
 					//split each individual query
-					var query = queries_array[j].split(':');
+					var query = queries_array[j].split(/([0-9]+):/);
 
 					//get condition and response
-					var condition = query[0];
-					var response = query[1];
+					var condition = query[0] + query[1];
+					var response = query[2];
 
 
 					//set empty variables
