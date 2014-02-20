@@ -8,7 +8,7 @@
 
 (function () {
 	var isArray = Array.isArray || function (obj) {
-	    return Object.prototype.toString.call(obj) == '[object Array]';
+		return Object.prototype.toString.call(obj) == '[object Array]';
 	};
 
 	var isString = function (obj) {
