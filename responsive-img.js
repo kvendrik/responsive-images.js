@@ -15,6 +15,22 @@
 		return Object.prototype.toString.call(obj) == '[object String]';
 	}
 
+	var hasAttr;
+
+	if(!images[0].hasAttribute){ //IE <=7 fix
+
+		hasAttr = function(el, attrName){ //IE does not support Object.Prototype
+			return el.getAttribute(attrName) !== null;
+		};
+
+	} else {
+
+		hasAttr = function(el, attrName){
+			return el.hasAttribute(attrName);
+		};
+
+	}
+
 	function makeImagesResponsive(targets){
 
 		var viewport = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
@@ -24,23 +40,6 @@
 		var images = document.getElementsByTagName('body')[0].getElementsByTagName('img');
 		if( images.length === 0 ){
 			return;
-		}
-
-		////////HASATTR FUNCTION////////
-
-		var hasAttr;
-		if(!images[0].hasAttribute){ //IE <=7 fix
-
-			hasAttr = function(el, attrName){ //IE does not support Object.Prototype
-				return el.getAttribute(attrName) !== null;
-			};
-
-		} else {
-
-			hasAttr = function(el, attrName){
-				return el.hasAttribute(attrName);
-			};
-
 		}
 
 		////////CHECK IF DISPLAY IS RETINA////////
