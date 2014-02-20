@@ -17,7 +17,7 @@
 
 	var hasAttr;
 
-	if(!images[0].hasAttribute){ //IE <=7 fix
+	if(!Image.prototype.hasAttribute){ //IE <=7 fix
 
 		hasAttr = function(el, attrName){ //IE does not support Object.Prototype
 			return el.getAttribute(attrName) !== null;
