@@ -7,6 +7,14 @@
 */
 
 (function () {
+	var isArray = Array.isArray || function (obj) {
+	    return Object.prototype.toString.call(obj) == '[object Array]';
+	};
+
+	var isString = function (obj) {
+		return Object.prototype.toString.call(obj) == '[object String]';
+	}
+
 	function makeImagesResponsive(targets){
 
 		var viewport = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
