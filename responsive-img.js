@@ -15,6 +15,10 @@
 		return Object.prototype.toString.call(obj) == '[object String]';
 	}
 
+	var isImage = function (obj) {
+		return Object.prototype.toString.call(obj) == '[object HTMLImageElement]';
+	}
+
 	var hasAttr;
 
 	if(!Image.prototype.hasAttribute){ //IE <=7 fix
@@ -69,6 +73,8 @@
 			images = targets;
 		} else if (isString(targets)) {
 			images = document.querySelectorAll(targets);
+		} else if (isImage(targets)) {
+			images = [targets];
 		} else {
 			images = document.getElementsByTagName('body')[0].getElementsByTagName('img');
 		}
