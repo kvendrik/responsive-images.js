@@ -5,9 +5,8 @@
 // Copyright 2013-2014 Koen Vendrik, http://kvendrik.com
 // Licensed under the MIT license
 */
-
+(function () {
 	function makeImagesResponsive(){
-
 			var viewport = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
 		////////GET ALL IMAGES////////
@@ -154,14 +153,54 @@
 
 	}
 
-if(window.addEventListener){
+	window.makeImagesResponsive = makeImagesResponsive;
 
-	window.addEventListener('load', makeImagesResponsive, false);
-	window.addEventListener('resize', makeImagesResponsive, false);
+	var throttle = function (fn, wait) {
+		var context
+		var args
+		var result;
+		var timeout = null;
+		var previous = 0;
 
-} else { //ie <=8 fix
+		var later = function () {
+			previous = new Date().getTime();
+			timeout = null;
+			result = fn.apply(context, args);
+			context = null;
+			args = null;
+		};
 
-	window.attachEvent('onload', makeImagesResponsive);
-	window.attachEvent('onresize', makeImagesResponsive);
+		return function() {
+			var now = new Date().getTime();
+			var remaining = wait - (now - previous);
+			context = this;
+			args = arguments;
+			
+			if (remaining <= 0) {
+				clearTimeout(timeout);
+				timeout = null;
+				previous = now;
+				result = fn.apply(context, args);
+				context = args = null;
+			} else if (!timeout) {
+				timeout = setTimeout(later, remaining);
+			}
+			
+			return result;
+		};
+	};
 
-}
+	var WAIT = 500; // 2x per second
+
+	if(window.addEventListener){
+
+		window.addEventListener('load', makeImagesResponsive, false);
+		window.addEventListener('resize', throttle(makeImagesResponsive, WAIT), false);
+
+	} else { //ie <=8 fix
+
+		window.attachEvent('onload', makeImagesResponsive);
+		window.attachEvent('onresize', throttle(makeImagesResponsive, WAIT));
+
+	}
+})();
