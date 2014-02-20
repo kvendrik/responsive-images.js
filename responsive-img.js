@@ -31,13 +31,48 @@
 
 	}
 
+	////////POLYFILL FOR document.querySelectorAll////////
+	// https://github.com/inexorabletash/polyfill/blob/master/polyfill.js#L671
+	if (!document.querySelectorAll) {
+		document.querySelectorAll = function (selectors) {
+			var style = document.createElement('style');
+			var elements = [];
+			var element;
+
+			document.documentElement.firstChild.appendChild(style);
+			document._qsa = [];
+
+			style.styleSheet.cssText = selectors + '{x-qsa:expression(document._qsa && document._qsa.push(this))}';
+			window.scrollBy(0, 0);
+			style.parentNode.removeChild(style);
+
+			while (document._qsa.length) {
+				element = document._qsa.shift();
+				element.style.removeAttribute('x-qsa');
+				elements.push(element);
+			}
+
+			delete document._qsa;
+			return elements;
+		};
+	}
+
+
 	function makeImagesResponsive(targets){
 
 		var viewport = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
-		////////GET ALL IMAGES////////
+		////////RESOLVE TARGETS////////
+		var images;
 
-		var images = document.getElementsByTagName('body')[0].getElementsByTagName('img');
+		if (isArray(targets)) {
+			images = targets;
+		} else if (isString(targets)) {
+			images = document.querySelectorAll(targets);
+		} else {
+			images = document.getElementsByTagName('body')[0].getElementsByTagName('img');
+		}
+
 		if( images.length === 0 ){
 			return;
 		}
