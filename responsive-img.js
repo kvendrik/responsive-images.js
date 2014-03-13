@@ -202,6 +202,8 @@
 		}
 
 	}
+	
+	window.makeImagesResponsive = makeImagesResponsive;
 
 	if(window.addEventListener){
 
