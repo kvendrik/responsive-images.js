@@ -74,11 +74,12 @@
 				for(var j = 0; j < queries_array.length; j++){
 
 					//split each individual query
-					var query = queries_array[j].replace(':','||').split('||');
-
-					//get condition and response
+					var query = queries_array[j].replace(/:/g,'||').split('||');
+					
+					//get condition, response and image map (if available)
 					var condition = query[0];
 					var response = query[1];
+					var map = query.length > 2 ? query[2] : '';
 
 
 					//set empty variables
@@ -129,18 +130,25 @@
 
 						var isCrossDomain = response.indexOf('//') !== -1 ? 1 : 0;
 
-						var new_source;
+						var new_source, new_map;
 						if(isCrossDomain === 1){
 							new_source = response;
 						} else {
 							new_source = basePath + response;
 						}
 
+						if (retina && hasAttr(image, 'data-src2x')) {
+							new_map = map == '' ? '' : map + "_retina";
+						} else {
+							new_map = map;
+
+						}
+
 						if(image.src !== new_source){
 
 							//change img src to basePath + response
 							image.setAttribute('src', new_source);
-
+							image.setAttribute('usemap', new_map);
 						}
 
 						//break loop

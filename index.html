@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -10,12 +10,42 @@
 
 <aside>
 	<div id='current-src'></div>
-	<img alt='kitten!' data-src-base='demo/images/' data-src-base2x='demo/images/retina/' data-src='<480:smallest.jpg,
-														 	  								        <768:small.jpg,
-														 	  									    <960:medium.jpg,
-														 	  									    >960:big.jpg' />
+	<img alt='kitten!' data-src-base='demo/images/' data-src-base2x='demo/images/retina/' data-src='<480:smallest.jpg:smallest_map,
+														 	  								        <768:small.jpg:small_map,
+														 	  									    <960:medium.jpg:medium_map,
+														 	  									    >960:big.jpg:big_map' />
 </aside>
 
+<!-- Standard image maps -->
+<map name="smallest_map" id="smallest_map">
+	<area alt="Purrrrrrrr..." href="#" title="Purrrrrrrr..." shape="rect" coords="87,116,226,238" style="outline:none;" target="_self" />
+</map>	
+<map name="small_map" id="small_map">
+	<area alt="Meow!" href="#" title="Meow!" shape="rect" coords="145,154,389,379" style="outline:none;" target="_self" />
+</map>
+<map name="medium_map" id="medium_map">
+	<area alt="I can haz blanket?" href="#" title="I can haz blanket?" shape="rect" coords="205,191,499,470" style="outline:none;" target="_self" />
+</map>
+<map name="big_map" id="big_map">
+	<area alt="RAWR!" href="#" title="RAWR!" shape="rect" coords="257,255,673,608" style="outline:none;" target="_self" />
+</map>
+
+	
+<!-- Retina image maps -->
+<map name="smallest_map_retina" id="smallest_map_retina">
+	<area alt="Purrrrrrrr..." href="#" title="Purrrrrrrr..." shape="rect" coords="87,116,226,238" style="outline:none;" target="_self" />
+</map>
+<map name="small_map_retina" id="small_map_retina">
+	<area alt="Meow!" href="#" title="Meow!" shape="rect" coords="145,154,389,379" style="outline:none;" target="_self" />
+</map>
+<map name="medium_map_retina" id="medium_map_retina">
+	<area alt="I can haz blanket?" href="#" title="I can haz blanket?" shape="rect" coords="205,191,499,470" style="outline:none;" target="_self" />
+</map>
+<map name="big_map_retina" id="big_map_retina">
+	<area alt="RAWR!" href="#" title="RAWR!" shape="rect" coords="257,255,673,608" style="outline:none;" target="_self" />
+</map>
+
+	
 <script src='responsive-img.min.js' defer></script>
 <script src='demo/js/current-src.min.js' defer></script>
 

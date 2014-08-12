@@ -23,12 +23,14 @@ To start using the plugin we only have to include the script in the footer of ou
 
 In the `data-src` attribute we specify the different breakpoints in combination with the image source it should use. In the `data-src-base`(optional) attribute we specify the base of our source urls.
 
-	<img alt='kitten!' data-src-base='demo/images/' data-src='<480:smallest.jpg,
-														 	  <768:small.jpg,
-														 	  <960:medium.jpg,
-														 	  >960:big.jpg' />
+	<img alt='kitten!' data-src-base='demo/images/' data-src='<480:smallest.jpg:smallest_map,
+														 	  <768:small.jpg:small_map,
+														 	  <960:medium.jpg:medium_map,
+														 	  >960:big.jpg:big_map' />
 
-Using the HTML above the browser would load demo/images/smallest.jpg if the size of the viewport is below 480 pixels, demo/images/small.jpg if the size of the viewport is above 480 pixels and below 768 pixels, demo/images/medium.jpg if the size of viewport above 768 pixels and below 960 pixels and demo/images/big.jpg if the size of viewport above 960 pixels.
+Using the HTML above the browser would load demo/images/smallest.jpg if the size of the viewport is below 480 pixels, demo/images/small.jpg if the size of the viewport is above 480 pixels and below 768 pixels, demo/images/medium.jpg if the size of viewport above 768 pixels and below 960 pixels and demo/images/big.jpg if the size of viewport above 960 pixels.  The 3rd parameter indicates the image map to use with each image, and is optional.
+
+**Note:** for Retina displays, `_retina` is appended to the image map name provided.  For example, if `smallest.jpg` were requested in the above example, then the image map `smallest_map_retina` would be used as the image map.
 
 Let's also create a fallback for non-javascript browsers:
 
