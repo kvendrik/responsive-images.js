@@ -6,16 +6,19 @@
 // Licensed under a BSD-2-Clause license
 */
 
-(function(){
+var makeImagesResponsive = (function(){
 
 	'use strict';
 
-function makeImagesResponsive(){
+	//set to false if you don't want to run makeImagesResponsive on page load
+	var runOnLoad = true;
+
+var makeImagesResponsive = function(imgEls){
 
 	var viewport = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
 	//get all images
-	var images = document.images;
+	var images = (imgEls[0] && imgEls[0].nodeType === 1) ? imgEls : document.images;
 	if( images.length === 0 ) return;
 
 	//define hasAttr function (IE <=7 fix)
@@ -171,14 +174,16 @@ var throttle = function(fn, threshhold, scope) {
 
 if(window.addEventListener){
 
-	window.addEventListener('load', makeImagesResponsive, false);
-	window.addEventListener('resize', throttle(makeImagesResponsive,500), false);
+	if(runOnLoad) window.addEventListener('load', makeImagesResponsive, false);
+	window.addEventListener('resize', throttle(makeImagesResponsive), false);
 
 } else { //ie <=8 fix
 
-	window.attachEvent('onload', makeImagesResponsive);
-	window.attachEvent('onresize', throttle(makeImagesResponsive,500));
+	if(runOnLoad) window.attachEvent('onload', makeImagesResponsive);
+	window.attachEvent('onresize', throttle(makeImagesResponsive));
 
 }
+
+return makeImagesResponsive;
 
 }());
