@@ -1,2 +1,1 @@
-#Ignore dev folder
-_dev/
+.DS_Store
