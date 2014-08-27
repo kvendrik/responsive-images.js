@@ -145,15 +145,39 @@ function makeImagesResponsive(){
 
 }
 
+//http://remysharp.com/2010/07/21/throttling-function-calls/
+var throttle = function(fn, threshhold, scope) {
+  threshhold || (threshhold = 250);
+  var last,
+      deferTimer;
+  return function () {
+    var context = scope || this;
+
+    var now = +new Date,
+        args = arguments;
+    if (last && now < last + threshhold) {
+      // hold on to it
+      clearTimeout(deferTimer);
+      deferTimer = setTimeout(function () {
+        last = now;
+        fn.apply(context, args);
+      }, threshhold);
+    } else {
+      last = now;
+      fn.apply(context, args);
+    }
+  };
+};
+
 if(window.addEventListener){
 
 	window.addEventListener('load', makeImagesResponsive, false);
-	window.addEventListener('resize', makeImagesResponsive, false);
+	window.addEventListener('resize', throttle(makeImagesResponsive,500), false);
 
 } else { //ie <=8 fix
 
 	window.attachEvent('onload', makeImagesResponsive);
-	window.attachEvent('onresize', makeImagesResponsive);
+	window.attachEvent('onresize', throttle(makeImagesResponsive,500));
 
 }
 
