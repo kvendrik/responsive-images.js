@@ -12,14 +12,14 @@ img {
   max-width: 100%;
 }
 
-aside {
+section {
   float: left;
   overflow: hidden;
 
   position: relative;
 }
 
-aside div#current-src {
+section div#current-src {
   top: 0;
   right: 0;
   position: absolute;

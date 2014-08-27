@@ -1,158 +1,149 @@
 /*
-// @name: Responsive-img.js
+// @name: Responsive-img.js (http://github.com/kvendrik/responsive-images.js)
 // @version: 1.1
 //
 // Copyright 2013-2014 Koen Vendrik, http://kvendrik.com
 // Licensed under a BSD-2-Clause license
 */
 
-	function makeImagesResponsive(){
+(function(){
 
-			var viewport = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+	'use strict';
 
-		////////GET ALL IMAGES////////
+function makeImagesResponsive(){
 
-		var images = document.getElementsByTagName('body')[0].getElementsByTagName('img');
-		if( images.length === 0 ){
-			return;
-		}
+	var viewport = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
-		////////HASATTR FUNCTION////////
+	//get all images
+	var images = document.images;
+	if( images.length === 0 ) return;
 
-		var hasAttr;
-		if(!images[0].hasAttribute){ //IE <=7 fix
+	//define hasAttr function (IE <=7 fix)
+	var hasAttr;
+	if(!images[0].hasAttribute){
 
-			hasAttr = function(el, attrName){ //IE does not support Object.Prototype
-				return el.getAttribute(attrName) !== null;
-			};
+		hasAttr = function(el, attrName){ //IE does not support Object.Prototype
+			return el.getAttribute(attrName) !== null;
+		};
 
-		} else {
+	} else {
 
-			hasAttr = function(el, attrName){
-				return el.hasAttribute(attrName);
-			};
-
-		}
-
-		////////CHECK IF DISPLAY IS RETINA////////
-
-		var retina = window.devicePixelRatio ? window.devicePixelRatio >= 1.2 ? 1 : 0 : 0;
-
-		////////LOOP ALL IMAGES////////
-
-		for (var i = 0; i < images.length; i++) {
-
-				var image = images[i];
-
-
-				//set attr names
-
-				var srcAttr = ( retina && hasAttr(image, 'data-src2x') ) ? 'data-src2x' : 'data-src';
-				var baseAttr = ( retina && hasAttr(image, 'data-src-base2x') ) ? 'data-src-base2x' : 'data-src-base';
-
-				//check image attributes
-
-				if( !hasAttr(image, srcAttr) ){
-					continue;
-				}
-
-				var basePath = hasAttr(image, baseAttr) ? image.getAttribute(baseAttr) : '';
-
-
-				//get attributes
-
-				var queries = image.getAttribute(srcAttr);
-
-
-
-				//split defined query list
-
-					var queries_array = queries.split(',');
-
-				//loop queries
-
-				for(var j = 0; j < queries_array.length; j++){
-
-					//split each individual query
-					var query = queries_array[j].replace(':','||').split('||');
-
-					//get condition and response
-					var condition = query[0];
-					var response = query[1];
-
-
-					//set empty variables
-					var conditionpx;
-					var bool;
-
-
-					//check if condition is below
-					if(condition.indexOf('<') !== -1){
-
-						conditionpx = condition.split('<');
-
-						if(queries_array[(j -1)]){
-
-							var prev_query = queries_array[(j - 1)].split(/:(.+)/);
-							var prev_cond = prev_query[0].split('<');
-
-							bool =  (viewport <= conditionpx[1] && viewport > prev_cond[1]);
-
-						} else {
-
-							bool =  (viewport <= conditionpx[1]);
-
-						}
-
-					} else {
-
-						conditionpx = condition.split('>');
-
-						if(queries_array[(j +1)]){
-
-							var next_query = queries_array[(j +1)].split(/:(.+)/);
-							var next_cond = next_query[0].split('>');
-							
-							bool = (viewport >= conditionpx[1] && viewport < next_cond[1]);
-
-						} else {
-
-							bool = (viewport >= conditionpx[1]);
-
-						}
-
-					}
-
-
-					//check if document.width meets condition
-					if(bool){
-
-						var isCrossDomain = response.indexOf('//') !== -1 ? 1 : 0;
-
-						var new_source;
-						if(isCrossDomain === 1){
-							new_source = response;
-						} else {
-							new_source = basePath + response;
-						}
-
-						if(image.src !== new_source){
-
-							//change img src to basePath + response
-							image.setAttribute('src', new_source);
-
-						}
-
-						//break loop
-						break;
-					}
-
-				}
-
-
-		}
+		hasAttr = function(el, attrName){
+			return el.hasAttribute(attrName);
+		};
 
 	}
+
+	//check if display is retina
+	var retina = window.devicePixelRatio ? window.devicePixelRatio >= 1.2 ? 1 : 0 : 0;
+
+	//loop images
+	for (var i = 0, imgCount = images.length; i < imgCount; i++) {
+
+		var img = images[i];
+
+
+		//set attr names
+		var srcAttr = ( retina && hasAttr(img, 'data-src2x') ) ? 'data-src2x' : 'data-src';
+		var baseAttr = ( retina && hasAttr(img, 'data-src-base2x') ) ? 'data-src-base2x' : 'data-src-base';
+
+		//check image src attributes
+		if( !hasAttr(img, srcAttr) ){
+			continue;
+		}
+
+		//check base path attr
+		var basePath = hasAttr(img, baseAttr) ? img.getAttribute(baseAttr) : '';
+
+
+		//get attributes
+		var queries = img.getAttribute(srcAttr);
+
+		//split defined query list
+		var queriesArray = queries.split(',');
+
+		//loop queries
+		for(var j = 0, queriesLength = queriesArray.length; j < queriesLength; j++){
+
+			//split each individual query
+			var query = queriesArray[j].replace(':','||').split('||');
+
+			//get condition and response
+			var condition = query[0];
+			var path = query[1];
+
+
+			//set empty variables
+			var conditionpx;
+			var bool;
+
+			//check if condition is below
+			if(condition.indexOf('<') !== -1){
+
+				conditionpx = condition.split('<');
+
+				if(queriesArray[(j -1)]){
+
+					var prevQuery = queriesArray[(j - 1)].split(/:(.+)/);
+					var prevCond = prevQuery[0].split('<');
+
+					bool = (viewport <= conditionpx[1] && viewport > prevCond[1]);
+
+				} else {
+
+					bool = (viewport <= conditionpx[1]);
+
+				}
+
+			} else {
+
+				conditionpx = condition.split('>');
+
+				if(queriesArray[(j +1)]){
+
+					var nextQuery = queriesArray[(j +1)].split(/:(.+)/);
+					var nextCond = nextQuery[0].split('>');
+
+					bool = (viewport >= conditionpx[1] && viewport < nextCond[1]);
+
+				} else {
+
+					bool = (viewport >= conditionpx[1]);
+
+				}
+
+			}
+
+
+			//check if document.width meets condition
+			if(bool){
+
+				var isCrossDomain = path.indexOf('//') !== -1;
+
+				var newSrc;
+				if(isCrossDomain){
+					newSrc = path;
+				} else {
+					newSrc = basePath + path;
+				}
+
+				if(img.src !== newSrc){
+
+					//change img src to basePath + response
+					img.setAttribute('src', newSrc);
+
+				}
+
+				//break loop
+				break;
+			}
+
+		}
+
+
+	}
+
+}
 
 if(window.addEventListener){
 
@@ -165,3 +156,5 @@ if(window.addEventListener){
 	window.attachEvent('onresize', makeImagesResponsive);
 
 }
+
+}());
