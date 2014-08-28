@@ -12,8 +12,8 @@ var makeImagesResponsive = (function(){
 
 var makeImagesResponsive = function(imgEls){
 
-	//get width to measure from (viewport by default)
-	var boxWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+	//get viewport
+	var viewport = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
 	//get all images
 	var images = (imgEls && imgEls[0] && imgEls[0].nodeType === 1) ? imgEls : document.images;
@@ -43,17 +43,15 @@ var makeImagesResponsive = function(imgEls){
 
 		var img = images[i];
 
+
 		//set attr names
 		var srcAttr = ( retina && hasAttr(img, 'data-src2x') ) ? 'data-src2x' : 'data-src';
 		var baseAttr = ( retina && hasAttr(img, 'data-src-base2x') ) ? 'data-src-base2x' : 'data-src-base';
 
-		//check image src attributes
+		//check image src attribute
 		if( !hasAttr(img, srcAttr) ){
 			continue;
 		}
-
-		//if specified that script needs to use the el parents width
-		if( hasAttr(img, 'data-use-parent') ) boxWidth = img.parentNode.offsetWidth;
 
 
 		//check base path attr
@@ -91,15 +89,15 @@ var makeImagesResponsive = function(imgEls){
 					var prevQuery = queriesArray[(j - 1)].split(/:(.+)/);
 					var prevCond = prevQuery[0].split('<');
 
-					bool = (boxWidth <= conditionpx[1] && boxWidth > prevCond[1]);
+					bool = (viewport <= conditionpx[1] && viewport > prevCond[1]);
 
 				} else {
 
-					bool = (boxWidth <= conditionpx[1]);
+					bool = (viewport <= conditionpx[1]);
 
 				}
 
-			} else if( condition.indexOf('>') !== -1 ) {
+			} else {
 
 				conditionpx = condition.split('>');
 
@@ -108,17 +106,13 @@ var makeImagesResponsive = function(imgEls){
 					var nextQuery = queriesArray[(j +1)].split(/:(.+)/);
 					var nextCond = nextQuery[0].split('>');
 
-					bool = (boxWidth >= conditionpx[1] && boxWidth < nextCond[1]);
+					bool = (viewport >= conditionpx[1] && viewport < nextCond[1]);
 
 				} else {
 
-					bool = (boxWidth >= conditionpx[1]);
+					bool = (viewport >= conditionpx[1]);
 
 				}
-
-			} else {
-
-				bool = boxWidth == condition;
 
 			}
 
