@@ -1,0 +1,24 @@
+{
+  "name": "Responsive-img.js",
+  "version": "1.0.0",
+  "homepage": "http://github.com/kvendrik/responsive-images.js",
+  "authors": [
+    "Koen Vendrik <k.vendrik@gmail.com>"
+  ],
+  "description": "Lightweight plugin for easy responsive images replacement",
+  "main": "dist/responsive-img-1.0.0.min.js",
+  "keywords": ["javascript", "plugin", "responsive images", "responsive img", "RWD images"],
+  "license": "BSD-2-Clause",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-uglify": "^0.5.1",
+    "grunt-contrib-jshint": "^0.10.0"
+  }
+}
