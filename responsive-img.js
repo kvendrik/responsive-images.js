@@ -6,32 +6,81 @@
 // Licensed under the MIT license
 */
 
-	function makeImagesResponsive(){
+(function () {
+	var isArray = Array.isArray || function (obj) {
+		return Object.prototype.toString.call(obj) == '[object Array]';
+	};
 
-			var viewport = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+	var isString = function (obj) {
+		return Object.prototype.toString.call(obj) == '[object String]';
+	}
 
-		////////GET ALL IMAGES////////
+	var isImage = function (obj) {
+		return Object.prototype.toString.call(obj) == '[object HTMLImageElement]';
+	}
 
-		var images = document.getElementsByTagName('body')[0].getElementsByTagName('img');
-		if( images.length === 0 ){
-			return;
+	var hasAttr;
+
+	if(!Image.prototype.hasAttribute){ //IE <=7 fix
+
+		hasAttr = function(el, attrName){ //IE does not support Object.Prototype
+			return el.getAttribute(attrName) !== null;
+		};
+
+	} else {
+
+		hasAttr = function(el, attrName){
+			return el.hasAttribute(attrName);
+		};
+
+	}
+
+	////////POLYFILL FOR document.querySelectorAll////////
+	// https://github.com/inexorabletash/polyfill/blob/master/polyfill.js#L671
+	if (!document.querySelectorAll) {
+		document.querySelectorAll = function (selectors) {
+			var style = document.createElement('style');
+			var elements = [];
+			var element;
+
+			document.documentElement.firstChild.appendChild(style);
+			document._qsa = [];
+
+			style.styleSheet.cssText = selectors + '{x-qsa:expression(document._qsa && document._qsa.push(this))}';
+			window.scrollBy(0, 0);
+			style.parentNode.removeChild(style);
+
+			while (document._qsa.length) {
+				element = document._qsa.shift();
+				element.style.removeAttribute('x-qsa');
+				elements.push(element);
+			}
+
+			delete document._qsa;
+			return elements;
+		};
+	}
+
+
+	function makeImagesResponsive(targets){
+
+		var viewport = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+		////////RESOLVE TARGETS////////
+		var images;
+
+		if (isArray(targets)) {
+			images = targets;
+		} else if (isString(targets)) {
+			images = document.querySelectorAll(targets);
+		} else if (isImage(targets)) {
+			images = [targets];
+		} else {
+			images = document.getElementsByTagName('body')[0].getElementsByTagName('img');
 		}
 
-		////////HASATTR FUNCTION////////
-
-		var hasAttr;
-		if(!images[0].hasAttribute){ //IE <=7 fix
-
-			hasAttr = function(el, attrName){ //IE does not support Object.Prototype
-				return el.getAttribute(attrName) !== null;
-			};
-
-		} else {
-
-			hasAttr = function(el, attrName){
-				return el.hasAttribute(attrName);
-			};
-
+		if( images.length === 0 ){
+			return;
 		}
 
 		////////CHECK IF DISPLAY IS RETINA////////
@@ -153,15 +202,18 @@
 		}
 
 	}
+	
+	window.makeImagesResponsive = makeImagesResponsive;
 
-if(window.addEventListener){
+	if(window.addEventListener){
 
-	window.addEventListener('load', makeImagesResponsive, false);
-	window.addEventListener('resize', makeImagesResponsive, false);
+		window.addEventListener('load', makeImagesResponsive, false);
+		window.addEventListener('resize', makeImagesResponsive, false);
 
-} else { //ie <=8 fix
+	} else { //ie <=8 fix
 
-	window.attachEvent('onload', makeImagesResponsive);
-	window.attachEvent('onresize', makeImagesResponsive);
+		window.attachEvent('onload', makeImagesResponsive);
+		window.attachEvent('onresize', makeImagesResponsive);
 
-}
+	}
+})();
