@@ -8,14 +8,27 @@ body {
   color: #333;
 }
 
+h4 {
+  margin-bottom: 40px;
+}
+
 img {
   max-width: 100%;
+}
+
+section {
+  width: 100%;
+  margin-bottom: 80px;
+  overflow: hidden;
 }
 
 .simple {
   float: left;
   overflow: hidden;
+}
 
+.simple .wrapper {
+  display: inline-block;
   position: relative;
 }
 

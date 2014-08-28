@@ -55,7 +55,6 @@ var makeImagesResponsive = function(imgEls){
 		//if specified that script needs to use the el parents width
 		if( hasAttr(img, 'data-use-parent') ) boxWidth = img.parentNode.offsetWidth;
 
-		console.log( boxWidth );
 
 		//check base path attr
 		var basePath = hasAttr(img, baseAttr) ? img.getAttribute(baseAttr) : '';
@@ -83,7 +82,7 @@ var makeImagesResponsive = function(imgEls){
 			var bool;
 
 			//check if condition is below
-			if(condition.indexOf('<') !== -1){
+			if( condition.indexOf('<') !== -1 ){
 
 				conditionpx = condition.split('<');
 
@@ -100,7 +99,7 @@ var makeImagesResponsive = function(imgEls){
 
 				}
 
-			} else {
+			} else if( condition.indexOf('>') !== -1 ) {
 
 				conditionpx = condition.split('>');
 
@@ -116,6 +115,10 @@ var makeImagesResponsive = function(imgEls){
 					bool = (boxWidth >= conditionpx[1]);
 
 				}
+
+			} else {
+
+				bool = boxWidth == condition;
 
 			}
 
