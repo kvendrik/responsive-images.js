@@ -13,12 +13,13 @@ var makeImagesResponsive = (function(){
 var makeImagesResponsive = function(options){
 
 	//settings defaults
-	var settings = {
+	var defaults = {
 		imgEls: undefined
 	};
 
-	for(var o in settings){
-		if(settings.hasOwnProperty(o) && options[o]){
+	var settings = {};
+	for(var o in defaults){
+		if(defaults.hasOwnProperty(o) && options[o]){
 			settings[o] = options[o];
 		}
 	}
