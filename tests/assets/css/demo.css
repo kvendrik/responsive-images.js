@@ -12,14 +12,14 @@ img {
   max-width: 100%;
 }
 
-section {
+.simple {
   float: left;
   overflow: hidden;
 
   position: relative;
 }
 
-section div#current-src {
+.simple div#current-src {
   top: 0;
   right: 0;
   position: absolute;
@@ -30,4 +30,22 @@ section div#current-src {
   background: #000;
   opacity: .7;
   padding: 12px 15px;
+}
+
+.parent-width {
+  width: 400px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+@media all and (min-width: 480px) and (max-width: 768px){
+  .parent-width {
+    width: 300px;
+  }
+}
+
+@media all and (max-width: 480px){
+  .parent-width {
+    width: 200px;
+  }
 }
