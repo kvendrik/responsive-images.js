@@ -10,15 +10,27 @@ var makeImagesResponsive = (function(){
 
 	'use strict';
 
-	//set to false if you don't want to run makeImagesResponsive on page load
-	var runOnLoad = true;
+var makeImagesResponsive = function(options){
 
-var makeImagesResponsive = function(imgEls){
+	//settings defaults
+	var settings = {
+		imgEls: undefined
+	};
 
-	var viewport = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+	for(var o in settings){
+		if(settings.hasOwnProperty(o) && options[o]){
+			settings[o] = options[o];
+		}
+	}
+
+	//get width to measure from
+	var viewport = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+
+		//get specified img elements
+		imgEls = settings.imgEls;
 
 	//get all images
-	var images = (imgEls[0] && imgEls[0].nodeType === 1) ? imgEls : document.images;
+	var images = (imgEls && imgEls[0] && imgEls[0].nodeType === 1) ? imgEls : document.images;
 	if( images.length === 0 ) return;
 
 	//define hasAttr function (IE <=7 fix)
@@ -174,12 +186,12 @@ var throttle = function(fn, threshhold, scope) {
 
 if(window.addEventListener){
 
-	if(runOnLoad) window.addEventListener('load', makeImagesResponsive, false);
+	window.addEventListener('load', makeImagesResponsive, false);
 	window.addEventListener('resize', throttle(makeImagesResponsive), false);
 
 } else { //ie <=8 fix
 
-	if(runOnLoad) window.attachEvent('onload', makeImagesResponsive);
+	window.attachEvent('onload', makeImagesResponsive);
 	window.attachEvent('onresize', throttle(makeImagesResponsive));
 
 }
