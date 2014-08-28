@@ -10,10 +10,9 @@
   "keywords": ["javascript", "plugin", "responsive images", "responsive img", "RWD images"],
   "license": "MIT",
   "ignore": [
-    "demo",
-    "versions",
+    "demo/",
+    "versions/",
     ".gitignore",
-    "README.md",
     "index.html"
   ]
 }
