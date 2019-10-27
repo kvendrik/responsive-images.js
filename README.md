@@ -12,21 +12,21 @@ Have a look at the blog post [here](http://davidwalsh.name/responsive-design) fo
 Usage
 -----
 
-####Setting it up
+#### Setting it up
 
 To start using the plugin we only have to include the script in the footer of our document.
 
 	<script src='responsive-img.min.js'></script>
 
 
-####HTML Structure
+#### HTML Structure
 
 In the `data-src` attribute we specify the different breakpoints in combination with the image source it should use. In the `data-src-base`(optional) attribute we specify the base of our source urls.
 
 	<img alt='kitten!' data-src-base='demo/images/' data-src='<480:smallest.jpg,
-														 	  <768:small.jpg,
-														 	  <960:medium.jpg,
-														 	  >960:big.jpg' />
+							<768:small.jpg,
+							<960:medium.jpg,
+							>960:big.jpg' />
 
 Using the HTML above the browser would load demo/images/smallest.jpg if the size of the viewport is below 480 pixels, demo/images/small.jpg if the size of the viewport is above 480 pixels and below 768 pixels, demo/images/medium.jpg if the size of viewport above 768 pixels and below 960 pixels and demo/images/big.jpg if the size of viewport above 960 pixels.
 
@@ -54,7 +54,7 @@ Browser support
 
 There are no known unsupported browsers. The plugin has currently been tested in the following browsers:
 
-####Desktop
+#### Desktop
 
 | Browser                   		 | Status | 
 | ---------------------------------- | ------ |
@@ -83,7 +83,7 @@ There are no known unsupported browsers. The plugin has currently been tested in
 | Chome 31 dev            		     | Works! |
 
 
-####Mobile
+#### Mobile
 
 | OS               								  | Status |
 | ----------------------------------------------- | ------ |
@@ -106,9 +106,9 @@ There are no known unsupported browsers. The plugin has currently been tested in
 |  iOS 7.0         								  | Works! |
 
 
-####Notes
+#### Notes
 
-######iOS
+###### iOS
 Without meta `width=device-width;` some mobile devices will apply a standard width to it's viewport of 960px and return this to the javascript. This might cause the script to load an image which is to big for your visitors screen. Make sure to set a meta tag with `width=device-width;` in your website's head.
 
 
